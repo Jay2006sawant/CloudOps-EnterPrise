@@ -1,0 +1,48 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Ansible
+*.retry
+
+# Python
+__pycache__/
+*.pyc
+
+# Docker
+*.env
+docker-compose.override.yml
+
+# Kubernetes
+*.kubeconfig
+
+# Logs
+*.log
+
+# Node
+node_modules/
+
+# General
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.env
+.env.*
+
+# CI/CD
+*.bak
+*.swp
+
+# Misc
+*.bak
+*.swp 
