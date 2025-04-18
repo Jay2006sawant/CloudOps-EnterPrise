@@ -1,0 +1,9 @@
+---
+- name: Provision AWS EC2 Instances
+  hosts: web
+  become: yes
+  tasks:
+    - name: Ensure Nginx is installed
+      ansible.builtin.yum:
+        name: nginx
+        state: present 
