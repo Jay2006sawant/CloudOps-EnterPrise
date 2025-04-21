@@ -1,0 +1,39 @@
+pipeline {
+  agent any
+
+  environment {
+    REGISTRY = 'docker.io/yourusername'
+    IMAGE = 'sample-app'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'docker build -t $REGISTRY/$IMAGE:latest docker/app'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'echo "Run tests here"'
+      }
+    }
+    stage('Push') {
+      steps {
+        withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
+          sh 'echo $DOCKERHUB_TOKEN | docker login -u yourusername --password-stdin'
+          sh 'docker push $REGISTRY/$IMAGE:latest'
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'echo "Deploy to Kubernetes or cloud here"'
+      }
+    }
+  }
+} 
