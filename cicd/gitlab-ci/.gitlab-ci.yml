@@ -1,0 +1,34 @@
+stages:
+  - build
+  - test
+  - push
+  - deploy
+
+variables:
+  IMAGE_NAME: sample-app
+  REGISTRY: registry.gitlab.com/yourusername/sample-app
+
+build:
+  stage: build
+  script:
+    - docker build -t $REGISTRY:latest docker/app
+
+unit_test:
+  stage: test
+  script:
+    - echo "Run tests here"
+
+push:
+  stage: push
+  script:
+    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker push $REGISTRY:latest
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy to Kubernetes or cloud here"
+  only:
+    - main 
